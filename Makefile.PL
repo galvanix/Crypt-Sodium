@@ -1,6 +1,5 @@
 use 5.008000;
 use ExtUtils::MakeMaker;
-use List::Util qw/uniq/;
 use Cwd qw/abs_path/;
 use File::Basename qw/dirname/;
 
@@ -74,8 +73,8 @@ if (scalar(keys %$c) > 0) {
         eval "use Alien::Sodium;";
         unless ($@) {
             $i = 2;
-            $c->{libdir} = join(' ', uniq(split(/ /, Alien::Sodium->libs)));
-            $c->{includedir} = join(' ', uniq(split/ /, Alien::Sodium->cflags));
+            $c->{libdir} = join(' ', split(/ /, Alien::Sodium->libs));
+            $c->{includedir} = join(' ', split/ /, Alien::Sodium->cflags);
         }
         
         $c->{modversion} = '1.0.8';
